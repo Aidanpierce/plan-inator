@@ -17,10 +17,19 @@
 	import Tag from '@lucide/svelte/icons/tag';
 	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
 	import Settings from '@lucide/svelte/icons/settings';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 
 	let { children } = $props();
 
 	let ready = $state(false);
+	let focusMode = $state(
+		typeof window !== 'undefined'
+			? localStorage.getItem('focusMode') === 'true'
+			: false
+	);
 
 	// Do this so svelte's resolve() is happy about the types of href
 	type Item = {
@@ -53,6 +62,11 @@
 		localStorage.setItem('theme', theme);
 	});
 
+	function toggleFocusMode() {
+		focusMode = !focusMode;
+		localStorage.setItem('focusMode', String(focusMode));
+	}
+
 	onMount(async () => {
 		// Keep systemDark in sync with OS preference.
 		const mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -66,39 +80,71 @@
 </script>
 
 {#if ready}
-	<div class="flex min-h-screen bg-stone-50 text-stone-800">
+	<div class="flex h-screen overflow-hidden bg-stone-50 text-stone-800">
 		<!-- Sidebar -->
-		<nav class="flex w-52 flex-col border-r border-stone-200 bg-white px-3 py-6">
-			<div class="mb-8 px-2">
-				<h1 class="text-lg font-semibold tracking-tight text-stone-700">plan-inator</h1>
-				<p class="text-xs text-stone-400">gentle productivity</p>
+		<nav class="flex flex-col border-r border-stone-200 bg-white transition-all duration-200
+			{focusMode ? 'w-14' : 'w-52'}">
+			<!-- Brand -->
+			<div class="shrink-0 px-3 py-6">
+				{#if focusMode}
+					<div class="flex justify-center">
+						<span class="text-sm font-bold text-amber-600">P</span>
+					</div>
+				{:else}
+					<div class="px-2">
+						<h1 class="text-lg font-semibold tracking-tight text-stone-700">plan-inator</h1>
+						<p class="text-xs text-stone-400">gentle productivity</p>
+					</div>
+				{/if}
 			</div>
 
-			<ul class="flex flex-col gap-1">
+			<!-- Nav items — scrollable if they overflow -->
+			<ul class="flex flex-col gap-1 overflow-y-auto px-2 pb-2">
 				{#each navItems as item (item)}
 					<li>
 						<a
 							href={resolve(item.href)}
-							class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors
+							title={focusMode ? item.label : undefined}
+							class="flex items-center rounded-lg py-2 text-sm transition-colors
+								{focusMode ? 'justify-center px-2' : 'gap-3 px-3'}
 								{$page.url.pathname.startsWith(item.href)
 								? 'bg-amber-50 font-medium text-amber-700'
 								: 'text-stone-500 hover:bg-stone-50 hover:text-stone-700'}"
 						>
 							<item.icon size={16} />
-							{item.label}
+							{#if !focusMode}
+								{item.label}
+							{/if}
 						</a>
 					</li>
 				{/each}
 			</ul>
+
+			<!-- Focus mode toggle — pinned to bottom -->
+			<div class="mt-auto shrink-0 border-t border-stone-200 px-2 py-3">
+				<button
+					onclick={toggleFocusMode}
+					title={focusMode ? 'Expand sidebar' : 'Focus mode'}
+					class="flex w-full items-center rounded-lg py-2 text-sm text-stone-400 transition-colors hover:bg-stone-50 hover:text-stone-600
+						{focusMode ? 'justify-center px-2' : 'gap-3 px-3'}"
+				>
+					{#if focusMode}
+						<PanelLeftOpen size={16} />
+					{:else}
+						<PanelLeftClose size={16} />
+						<span>Collapse Sidebar</span>
+					{/if}
+				</button>
+			</div>
 		</nav>
 
-		<!-- Main content -->
-		<main class="flex-1 overflow-auto">
+		<!-- Main content — independently scrollable -->
+		<main class="flex-1 overflow-y-auto">
 			{@render children()}
 		</main>
 	</div>
 {:else}
-	<div class="flex min-h-screen items-center justify-center bg-stone-50">
+	<div class="flex h-screen items-center justify-center bg-stone-50">
 		<p class="text-stone-400">Loading…</p>
 	</div>
 {/if}
