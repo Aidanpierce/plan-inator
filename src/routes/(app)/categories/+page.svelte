@@ -230,16 +230,17 @@
 			<form onsubmit={submitForm} class="space-y-3">
 				<div class="flex gap-3">
 					<div class="flex-1">
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Name</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="name-input">Name</label>
 						<input
 							type="text"
 							placeholder="e.g. CS101"
 							bind:value={formName}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-						/>
+							id="name-input"
+							/>
 					</div>
 					<div class="w-24">
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="priority-input">
 							Priority (1–10)
 						</label>
 						<input
@@ -248,13 +249,14 @@
 							max="10"
 							bind:value={formPriority}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-						/>
+							id="priority-input"
+							/>
 					</div>
 				</div>
 
 				<div>
-					<label class="mb-2 block text-xs text-stone-500 dark:text-stone-400">Colour</label>
-					<div class="flex flex-wrap gap-2">
+					<label class="mb-2 block text-xs text-stone-500 dark:text-stone-400" for="color-select">Colour</label>
+					<div class="flex flex-wrap gap-2" id="color-select">
 						{#each PALETTE as color (color)}
 							<button
 								type="button"
@@ -332,6 +334,7 @@
 								{#each PALETTE as color (color)}
 									<button
 										type="button"
+										aria-label={"Select color: " + color}
 										onclick={() => (editColor = color)}
 										class="h-6 w-6 rounded-full border-2 transition-transform hover:scale-110
 											{editColor === color ? 'border-stone-700 dark:border-white scale-110' : 'border-transparent'}"

@@ -34,6 +34,7 @@
 <div class="p-8">
 	<header class="mb-8">
 		<h2 class="text-2xl font-semibold text-stone-800">Dashboard</h2>
+		<h1 class="text-lg font-semibold tracking-tight text-stone-700">plan-inator</h1>
 		<p class="mt-1 text-sm text-stone-400">
 			{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
 		</p>

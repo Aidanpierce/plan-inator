@@ -72,7 +72,8 @@
 			});
 			closeForm();
 		} catch (err) {
-			formError = 'Something went wrong. Please try again.';
+			console.log(err)
+			formError = 'Something went wrong. Please try again. Error logged to console';
 		} finally {
 			saving = false;
 		}
@@ -140,10 +141,11 @@
 				<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 					<!-- Category -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Category</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="category-select">Category</label>
 						<select
 							bind:value={formCategoryId}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="category-select"
 						>
 							<option value="">None</option>
 							{#each $categoryStore as cat (cat.id)}
@@ -154,10 +156,11 @@
 
 					<!-- Type -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Type</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="type-select">Type</label>
 						<select
 							bind:value={formType}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="type-select"
 						>
 							<option value="general">General</option>
 							<option value="assignment">Assignment</option>
@@ -167,10 +170,11 @@
 
 					<!-- Status -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Add to</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="status-select">Add to</label>
 						<select
 							bind:value={formStatus}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="status-select"
 						>
 							<option value="active">Active</option>
 							<option value="backlog">Backlog</option>
@@ -179,27 +183,29 @@
 
 					<!-- Deadline -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Deadline</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="deadline-input">Deadline</label>
 						<input
 							type="date"
 							bind:value={formDeadline}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-						/>
+							id="deadline-input"
+							/>
 					</div>
 				</div>
 
 				<!-- Estimate -->
 				<div class="w-40">
-					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400"
-						>Estimated minutes</label
-					>
+					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="estimate-input">
+						Estimated minutes
+					</label>
 					<input
 						type="number"
 						min="1"
 						placeholder="e.g. 60"
 						bind:value={formEstimatedMinutes}
 						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-					/>
+						id="estimate-input"
+						/>
 				</div>
 
 				{#if formError}

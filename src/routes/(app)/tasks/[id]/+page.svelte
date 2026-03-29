@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { derived } from 'svelte/store';
 	import { taskStore } from '$lib/stores/taskStore.js';
 	import { categoryStore } from '$lib/stores/categoryStore.js';
 	import { timerStore } from '$lib/stores/timerStore.js';
@@ -9,6 +8,8 @@
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 	import Timer from '$lib/components/Timer.svelte';
 	import type { TimeEntry, TaskType, TaskStatus } from '$lib/db/types.js';
+	import { resolve } from '$app/paths';
+
 	// @ts-expect-error lucide path mismatch
 	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
 	// @ts-expect-error lucide path mismatch
@@ -139,7 +140,7 @@
 	async function deleteTask() {
 		if (!task || !confirm('Delete this task? This cannot be undone.')) return;
 		await taskStore.deleteTask(taskId);
-		goto('/tasks');
+		goto(resolve('/tasks'));
 	}
 
 	async function deleteEntry(id: string) {
@@ -152,7 +153,7 @@
 <div class="p-8">
 	<!-- Back link -->
 	<a
-		href="/tasks"
+		href={resolve("/tasks")}
 		class="mb-6 inline-flex items-center gap-1.5 text-sm text-stone-400 transition-colors hover:text-stone-600 dark:hover:text-stone-300"
 	>
 		<ArrowLeft size={14} />
@@ -162,7 +163,7 @@
 	{#if !task}
 		<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
 			<p class="text-stone-400">Task not found.</p>
-			<a href="/tasks" class="mt-2 block text-sm text-amber-600 hover:underline dark:text-amber-400">
+			<a href={resolve("/tasks")} class="mt-2 block text-sm text-amber-600 hover:underline dark:text-amber-400">
 				Back to tasks
 			</a>
 		</div>
@@ -186,10 +187,11 @@
 
 				<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Category</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="category-edit-select">Category</label>
 						<select
 							bind:value={editCategoryId}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="category-edit-select"
 						>
 							<option value="">None</option>
 							{#each $categoryStore as cat (cat.id)}
@@ -198,10 +200,11 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Type</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="type-edit-select">Type</label>
 						<select
 							bind:value={editType}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="type-edit-select"
 						>
 							<option value="general">General</option>
 							<option value="assignment">Assignment</option>
@@ -209,10 +212,11 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Status</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="status-edit-select">Status</label>
 						<select
 							bind:value={editStatus}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							id="status-edit-select"
 						>
 							<option value="active">Active</option>
 							<option value="backlog">Backlog</option>
@@ -221,17 +225,18 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">Deadline</label>
+						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="deadline-edit-input">Deadline</label>
 						<input
 							type="date"
 							bind:value={editDeadline}
 							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-						/>
+							id="deadline-edit-input"
+							/>
 					</div>
 				</div>
 
 				<div class="w-40">
-					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400">
+					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="minutes-edit-input">
 						Estimated minutes
 					</label>
 					<input
@@ -240,7 +245,8 @@
 						placeholder="e.g. 60"
 						bind:value={editEstimatedMinutes}
 						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
-					/>
+						id="minutes-edit-input"
+						/>
 				</div>
 
 				{#if editError}
