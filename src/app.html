@@ -3,6 +3,16 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Runs synchronously before first paint to prevent flash of wrong theme. -->
+		<script>
+			(function () {
+				var theme = localStorage.getItem('theme');
+				var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				if (theme === 'dark' || (theme !== 'light' && systemDark)) {
+					document.documentElement.classList.add('dark');
+				}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

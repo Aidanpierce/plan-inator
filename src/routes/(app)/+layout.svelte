@@ -34,10 +34,12 @@
 	);
 
 	// Apply / remove the .dark class on <html> whenever theme or system pref changes.
+	// Also persist to localStorage so app.html's inline script can read it on next load.
 	$effect(() => {
 		const theme = $settingsStore?.theme ?? 'system';
 		const isDark = theme === 'dark' || (theme === 'system' && systemDark);
 		document.documentElement.classList.toggle('dark', isDark);
+		localStorage.setItem('theme', theme);
 	});
 
 	onMount(async () => {
