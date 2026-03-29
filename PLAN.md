@@ -92,7 +92,7 @@ All messages use gentle tone: "Hey, [task] is due in 2 days. No rush, just wante
 
 ## Implementation Phases
 
-### Phase 1: Foundation ← current
+### Phase 1: Foundation
 - SvelteKit project scaffold (TypeScript, Tailwind, Vitest, Playwright)
 - Dexie database definition and migrations (`/src/lib/db/database.ts`)
 - Repository layer (`/src/lib/db/repositories/`)
@@ -100,7 +100,7 @@ All messages use gentle tone: "Hey, [task] is due in 2 days. No rush, just wante
 - App shell layout, dashboard page, settings page (day template config)
 - **Deliverable:** User configures day templates, sees available hours per day/week
 
-### Phase 2: Tasks & Categories
+### Phase 2: Tasks & Categories ← current
 - Task CRUD, time entry tracking with start/stop timer
 - Category management with priority ordering
 - Category auto-detection service

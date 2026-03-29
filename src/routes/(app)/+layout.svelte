@@ -4,6 +4,9 @@
 	import { initDatabase } from '$lib/db/database.js';
 	import { settingsStore } from '$lib/stores/settingsStore.js';
 	import { dayTemplateStore } from '$lib/stores/dayTemplateStore.js';
+	import { categoryStore } from '$lib/stores/categoryStore.js';
+	import { taskStore } from '$lib/stores/taskStore.js';
+	import { timerStore } from '$lib/stores/timerStore.js';
 	import { SettingsRepository } from '$lib/db/repositories/SettingsRepository.js';
 	import { resolve } from '$app/paths';
 	// Import svelte icons this way so they get tree-shaken away
@@ -73,7 +76,13 @@
 		mq.addEventListener('change', (e) => { systemDark = e.matches; });
 
 		await initDatabase();
-		await Promise.all([settingsStore.load(), dayTemplateStore.load()]);
+		await Promise.all([
+			settingsStore.load(),
+			dayTemplateStore.load(),
+			categoryStore.load(),
+			taskStore.load(),
+			timerStore.load()
+		]);
 		await SettingsRepository.touchLastActive();
 		ready = true;
 	});
