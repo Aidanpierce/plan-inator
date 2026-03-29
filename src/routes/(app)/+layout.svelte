@@ -26,7 +26,25 @@
 		{ href: '/settings', label: 'Settings', icon: '⚙' }
 	];
 
+	// Initialise from window immediately so there's no flash on first load.
+	let systemDark = $state(
+		typeof window !== 'undefined'
+			? window.matchMedia('(prefers-color-scheme: dark)').matches
+			: false
+	);
+
+	// Apply / remove the .dark class on <html> whenever theme or system pref changes.
+	$effect(() => {
+		const theme = $settingsStore?.theme ?? 'system';
+		const isDark = theme === 'dark' || (theme === 'system' && systemDark);
+		document.documentElement.classList.toggle('dark', isDark);
+	});
+
 	onMount(async () => {
+		// Keep systemDark in sync with OS preference.
+		const mq = window.matchMedia('(prefers-color-scheme: dark)');
+		mq.addEventListener('change', (e) => { systemDark = e.matches; });
+
 		await initDatabase();
 		await Promise.all([settingsStore.load(), dayTemplateStore.load()]);
 		await SettingsRepository.touchLastActive();

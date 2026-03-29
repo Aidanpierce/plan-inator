@@ -1,1 +1,37 @@
 @import 'tailwindcss';
+
+/* Dark mode: calm purple theme
+   Applied when <html> has the .dark class.
+   Tailwind v4 compiles color utilities to CSS var() references,
+   so overriding these variables here is all that's needed — no
+   dark: variants required in component files. */
+:root.dark {
+	/* Page & surface backgrounds */
+	--color-stone-50: oklch(0.15 0.05 280);
+	--color-stone-100: oklch(0.20 0.05 280);
+	--color-stone-200: oklch(0.27 0.04 280);
+	--color-stone-300: oklch(0.35 0.04 280);
+
+	/* Text — muted → strong */
+	--color-stone-400: oklch(0.55 0.07 285);
+	--color-stone-500: oklch(0.65 0.06 285);
+	--color-stone-600: oklch(0.74 0.05 285);
+	--color-stone-700: oklch(0.83 0.04 285);
+	--color-stone-800: oklch(0.92 0.03 285);
+	--color-stone-900: oklch(0.96 0.02 285);
+
+	/* Card / surface background (replaces white) */
+	--color-white: oklch(0.20 0.04 280);
+
+	/* Accent — amber → soft violet */
+	--color-amber-50: oklch(0.22 0.06 290);
+	--color-amber-100: oklch(0.28 0.09 290);
+	--color-amber-200: oklch(0.35 0.13 290);
+	--color-amber-400: oklch(0.65 0.19 290);
+	--color-amber-500: oklch(0.60 0.21 290);
+	--color-amber-600: oklch(0.55 0.23 290);
+	--color-amber-700: oklch(0.74 0.15 290);
+
+	/* Danger colour used in delete buttons */
+	--color-red-400: oklch(0.70 0.18 10);
+}
