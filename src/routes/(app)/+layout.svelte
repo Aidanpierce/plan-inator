@@ -6,6 +6,17 @@
 	import { dayTemplateStore } from '$lib/stores/dayTemplateStore.js';
 	import { SettingsRepository } from '$lib/db/repositories/SettingsRepository.js';
 	import { resolve } from '$app/paths';
+	// Import svelte icons this way so they get tree-shaken away
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import LayoutDashboard from '@lucide/svelte/icons/layout-dashboard';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import CheckSquare from '@lucide/svelte/icons/check-square';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import CalendarDays from '@lucide/svelte/icons/calendar-days';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import Tag from '@lucide/svelte/icons/tag';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import Settings from '@lucide/svelte/icons/settings';
 
 	let { children } = $props();
 
@@ -15,15 +26,15 @@
 	type Item = {
 		href: '/dashboard' | '/tasks' | '/schedule' | '/categories' | '/settings',
 		label: string,
-		icon: string,
+		icon: typeof LayoutDashboard,
 	}
 
 	const navItems: Item[] = [
-		{ href: '/dashboard', label: 'Dashboard', icon: '◈' },
-		{ href: '/tasks', label: 'Tasks', icon: '✦' },
-		{ href: '/schedule', label: 'Schedule', icon: '⊞' },
-		{ href: '/categories', label: 'Categories', icon: '◉' },
-		{ href: '/settings', label: 'Settings', icon: '⚙' }
+		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+		{ href: '/tasks', label: 'Tasks', icon: CheckSquare },
+		{ href: '/schedule', label: 'Schedule', icon: CalendarDays },
+		{ href: '/categories', label: 'Categories', icon: Tag },
+		{ href: '/settings', label: 'Settings', icon: Settings }
 	];
 
 	// Initialise from window immediately so there's no flash on first load.
@@ -73,7 +84,7 @@
 								? 'bg-amber-50 font-medium text-amber-700'
 								: 'text-stone-500 hover:bg-stone-50 hover:text-stone-700'}"
 						>
-							<span class="text-base leading-none">{item.icon}</span>
+							<item.icon size={16} />
 							{item.label}
 						</a>
 					</li>

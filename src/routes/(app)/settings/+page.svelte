@@ -2,6 +2,13 @@
 	import { settingsStore } from '$lib/stores/settingsStore.js';
 	import { dayTemplateStore } from '$lib/stores/dayTemplateStore.js';
 	import type { DayTemplateWithCommitments } from '$lib/db/types.js';
+	// Import svelte icons this way so they get tree-shaken away
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import BedDouble from '@lucide/svelte/icons/bed-double';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import Flower from '@lucide/svelte/icons/flower-2';
+	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
+	import Calendar from '@lucide/svelte/icons/calendar';
 
 	// --- Settings form ---
 	// Don't know why these are here - claude made them but they aren't used
@@ -179,10 +186,13 @@
 						<div>
 							<h4 class="font-medium text-stone-700">{template.name}</h4>
 							<div class="mt-1 flex flex-wrap gap-3 text-xs text-stone-400">
-								<span>💤 {template.sleepHours}h sleep</span>
-								<span>🌿 {template.personalHours}h personal</span>
+								<BedDouble size={16}/>
+								<span>{template.sleepHours}h sleep</span>
+								<Flower size={16}/>
+								<span>{template.personalHours}h personal</span>
 								{#if template.commitments.length > 0}
-									<span>📅 {(totalCommitmentMinutes(template) / 60).toFixed(1)}h commitments</span>
+									<Calendar size={16} />
+									<span>{(totalCommitmentMinutes(template) / 60).toFixed(1)}h commitments</span>
 								{/if}
 								<span class="font-medium text-stone-600">
 									≈ {availableHours(template).toFixed(1)}h available
