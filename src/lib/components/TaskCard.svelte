@@ -48,8 +48,7 @@
 
 <div
 	class="group rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md
-		dark:bg-stone-900 dark:hover:shadow-stone-800
-		{isOverdue ? 'border-red-200 dark:border-red-900' : 'border-stone-200 dark:border-stone-700'}"
+		{isOverdue ? 'border-red-200' : 'border-stone-200'}"
 >
 	<div class="flex items-start gap-3">
 		<!-- Complete button -->
@@ -57,7 +56,7 @@
 			<button
 				onclick={complete}
 				title="Mark as done"
-				class="mt-0.5 shrink-0 text-stone-300 transition-colors hover:text-amber-500 dark:text-stone-600 dark:hover:text-amber-400"
+				class="mt-0.5 shrink-0 text-stone-300 transition-colors hover:text-amber-500"
 			>
 				<CheckCircle2 size={18} />
 			</button>
@@ -68,7 +67,7 @@
 			{#if href}
 				<a {href} class="block">
 					<p
-						class="font-medium text-stone-800 hover:text-amber-700 dark:text-stone-100 dark:hover:text-amber-400
+						class="font-medium text-stone-800 hover:text-amber-700
 							{task.status === 'completed' ? 'line-through text-stone-400' : ''}"
 					>
 						{task.title}
@@ -76,7 +75,7 @@
 				</a>
 			{:else}
 				<p
-					class="font-medium text-stone-800 dark:text-stone-100
+					class="font-medium text-stone-800
 						{task.status === 'completed' ? 'line-through text-stone-400' : ''}"
 				>
 					{task.title}
@@ -93,7 +92,7 @@
 				{#if task.deadline}
 					<span
 						class="flex items-center gap-1 text-xs
-							{isOverdue ? 'text-red-500 dark:text-red-400' : 'text-stone-400 dark:text-stone-500'}"
+							{isOverdue ? 'text-red-500' : 'text-stone-400'}"
 					>
 						<Clock size={11} />
 						{deadlineLabel()}
@@ -101,7 +100,7 @@
 				{/if}
 
 				{#if task.estimatedMinutes}
-					<span class="text-xs text-stone-400 dark:text-stone-500">
+					<span class="text-xs text-stone-400">
 						~{task.estimatedMinutes}min
 					</span>
 				{/if}
@@ -116,7 +115,7 @@
 			{#if href}
 				<a
 					{href}
-					class="text-stone-300 opacity-0 transition-opacity group-hover:opacity-100 dark:text-stone-600"
+					class="text-stone-300 opacity-0 transition-opacity group-hover:opacity-100"
 				>
 					<ChevronRight size={16} />
 				</a>

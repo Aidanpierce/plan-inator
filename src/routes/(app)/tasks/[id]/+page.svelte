@@ -157,43 +157,43 @@
 	<!-- Back link -->
 	<a
 		href={resolve("/tasks")}
-		class="mb-6 inline-flex items-center gap-1.5 text-sm text-stone-400 transition-colors hover:text-stone-600 dark:hover:text-stone-300"
+		class="mb-6 inline-flex items-center gap-1.5 text-sm text-stone-400 transition-colors hover:text-stone-600"
 	>
 		<ArrowLeft size={14} />
 		All tasks
 	</a>
 
 	{#if !task}
-		<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
+		<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center">
 			<p class="text-stone-400">Task not found.</p>
-			<a href={resolve("/tasks")} class="mt-2 block text-sm text-amber-600 hover:underline dark:text-amber-400">
+			<a href={resolve("/tasks")} class="mt-2 block text-sm text-amber-600 hover:underline">
 				Back to tasks
 			</a>
 		</div>
 	{:else if editing}
 		<!-- Edit form -->
 		<div class="mx-auto max-w-xl">
-			<h2 class="mb-4 text-xl font-semibold text-stone-800 dark:text-stone-100">Edit task</h2>
+			<h2 class="mb-4 text-xl font-semibold text-stone-800">Edit task</h2>
 			<form onsubmit={saveEdit} class="space-y-3">
 				<input
 					type="text"
 					placeholder="Task title"
 					bind:value={editTitle}
-					class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+					class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 				/>
 				<textarea
 					placeholder="Description (optional)"
 					bind:value={editDescription}
 					rows={3}
-					class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+					class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 				></textarea>
 
 				<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="category-edit-select">Category</label>
+						<label class="mb-1 block text-xs text-stone-500" for="category-edit-select">Category</label>
 						<select
 							bind:value={editCategoryId}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="category-edit-select"
 						>
 							<option value="">None</option>
@@ -203,10 +203,10 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="type-edit-select">Type</label>
+						<label class="mb-1 block text-xs text-stone-500" for="type-edit-select">Type</label>
 						<select
 							bind:value={editType}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="type-edit-select"
 						>
 							<option value="general">General</option>
@@ -215,10 +215,10 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="status-edit-select">Status</label>
+						<label class="mb-1 block text-xs text-stone-500" for="status-edit-select">Status</label>
 						<select
 							bind:value={editStatus}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="status-edit-select"
 						>
 							<option value="active">Active</option>
@@ -228,18 +228,18 @@
 						</select>
 					</div>
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="deadline-edit-input">Deadline</label>
+						<label class="mb-1 block text-xs text-stone-500" for="deadline-edit-input">Deadline</label>
 						<input
 							type="date"
 							bind:value={editDeadline}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="deadline-edit-input"
 							/>
 					</div>
 				</div>
 
 				<div class="w-40">
-					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="minutes-edit-input">
+					<label class="mb-1 block text-xs text-stone-500" for="minutes-edit-input">
 						Estimated minutes
 					</label>
 					<input
@@ -247,7 +247,7 @@
 						min="1"
 						placeholder="e.g. 60"
 						bind:value={editEstimatedMinutes}
-						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 						id="minutes-edit-input"
 						/>
 				</div>
@@ -267,7 +267,7 @@
 					<button
 						type="button"
 						onclick={() => (editing = false)}
-						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800"
+						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100"
 					>
 						Cancel
 					</button>
@@ -281,27 +281,27 @@
 			<div class="mb-4 flex items-start justify-between gap-4">
 				<div>
 					<h2
-						class="text-xl font-semibold text-stone-800 dark:text-stone-100
+						class="text-xl font-semibold text-stone-800
 							{task.status === 'completed' || task.status === 'abandoned' ? 'line-through text-stone-400' : ''}"
 					>
 						{task.title}
 					</h2>
 					{#if task.description}
-						<p class="mt-1 text-sm text-stone-500 dark:text-stone-400">{task.description}</p>
+						<p class="mt-1 text-sm text-stone-500">{task.description}</p>
 					{/if}
 				</div>
 				<div class="flex shrink-0 gap-1">
 					<button
 						onclick={startEdit}
 						title="Edit"
-						class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600 dark:hover:bg-stone-800"
+						class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
 					>
 						<Pencil size={15} />
 					</button>
 					<button
 						onclick={deleteTask}
 						title="Delete"
-						class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950"
+						class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500"
 					>
 						<Trash2 size={15} />
 					</button>
@@ -313,23 +313,23 @@
 				<CategoryBadge {category} />
 
 				<span
-					class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium capitalize text-stone-500 dark:bg-stone-800 dark:text-stone-400"
+					class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium capitalize text-stone-500"
 				>
 					{task.type}
 				</span>
 
 				<span
 					class="rounded-full px-2.5 py-0.5 text-xs font-medium capitalize
-						{task.status === 'active' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' : ''}
-						{task.status === 'backlog' ? 'bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400' : ''}
-						{task.status === 'completed' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300' : ''}
-						{task.status === 'abandoned' ? 'bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400' : ''}"
+						{task.status === 'active' ? 'bg-green-100 text-green-700' : ''}
+						{task.status === 'backlog' ? 'bg-stone-100 text-stone-500' : ''}
+						{task.status === 'completed' ? 'bg-amber-100 text-amber-700' : ''}
+						{task.status === 'abandoned' ? 'bg-red-100 text-red-600' : ''}"
 				>
 					{task.status}
 				</span>
 
 				{#if task.deadline}
-					<span class="flex items-center gap-1 text-xs text-stone-400 dark:text-stone-500">
+					<span class="flex items-center gap-1 text-xs text-stone-400">
 						<Clock size={11} />
 						Due {new Date(task.deadline).toLocaleDateString(undefined, {
 							month: 'short',
@@ -346,21 +346,21 @@
 					<Timer taskId={task.id} />
 
 					{#if totalMinutes > 0}
-						<span class="text-sm text-stone-400 dark:text-stone-500">
+						<span class="text-sm text-stone-400">
 							{formatMinutes(totalMinutes)} tracked
 							{#if task.estimatedMinutes}
 								/ {formatMinutes(task.estimatedMinutes)} est.
 							{/if}
 						</span>
 					{:else if task.estimatedMinutes}
-						<span class="text-sm text-stone-400 dark:text-stone-500">
+						<span class="text-sm text-stone-400">
 							~{formatMinutes(task.estimatedMinutes)} estimated
 						</span>
 					{/if}
 
 					<button
 						onclick={complete}
-						class="flex items-center gap-1.5 rounded-lg bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600 transition-colors hover:bg-amber-50 hover:text-amber-700 dark:bg-stone-800 dark:text-stone-300"
+						class="flex items-center gap-1.5 rounded-lg bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600 transition-colors hover:bg-amber-50 hover:text-amber-700"
 					>
 						<CheckCircle2 size={13} />
 						Mark done
@@ -368,7 +368,7 @@
 
 					<button
 						onclick={abandon}
-						class="rounded-lg px-3 py-1.5 text-xs text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600 dark:hover:bg-stone-800"
+						class="rounded-lg px-3 py-1.5 text-xs text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
 					>
 						Abandon
 					</button>
@@ -377,7 +377,7 @@
 
 			<!-- Time entries -->
 			<div>
-				<h3 class="mb-3 text-sm font-medium text-stone-600 dark:text-stone-400">Time entries</h3>
+				<h3 class="mb-3 text-sm font-medium text-stone-600">Time entries</h3>
 
 				{#if timeEntries.length === 0}
 					<p class="text-sm text-stone-400">No time tracked yet.</p>
@@ -385,15 +385,15 @@
 					<div class="space-y-2">
 						{#each timeEntries as entry (entry.id)}
 							<div
-								class="flex items-center justify-between rounded-lg border border-stone-100 bg-stone-50 px-3 py-2 dark:border-stone-800 dark:bg-stone-900"
+								class="flex items-center justify-between rounded-lg border border-stone-100 bg-stone-50 px-3 py-2"
 							>
 								<div>
-									<span class="text-sm text-stone-700 dark:text-stone-300">
+									<span class="text-sm text-stone-700">
 										{formatDateTime(entry.startedAt)}
 									</span>
 									{#if entry.endedAt}
-										<span class="mx-1 text-stone-300 dark:text-stone-600">→</span>
-										<span class="text-sm text-stone-500 dark:text-stone-400">
+										<span class="mx-1 text-stone-300">→</span>
+										<span class="text-sm text-stone-500">
 											{new Date(entry.endedAt).toLocaleTimeString(undefined, {
 												hour: '2-digit',
 												minute: '2-digit'
@@ -401,7 +401,7 @@
 										</span>
 									{:else}
 										<span
-											class="ml-2 rounded-full bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300"
+											class="ml-2 rounded-full bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700"
 										>
 											running
 										</span>
@@ -409,13 +409,13 @@
 								</div>
 								<div class="flex items-center gap-3">
 									{#if entry.durationMinutes != null}
-										<span class="text-xs font-medium text-stone-500 dark:text-stone-400">
+										<span class="text-xs font-medium text-stone-500">
 											{formatMinutes(entry.durationMinutes)}
 										</span>
 									{/if}
 									<button
 										onclick={() => deleteEntry(entry.id)}
-										class="text-stone-300 transition-colors hover:text-red-400 dark:text-stone-600"
+										class="text-stone-300 transition-colors hover:text-red-400"
 										title="Delete entry"
 									>
 										<X size={13} />
@@ -425,7 +425,7 @@
 						{/each}
 
 						{#if totalMinutes > 0}
-							<div class="pt-1 text-right text-xs font-medium text-stone-500 dark:text-stone-400">
+							<div class="pt-1 text-right text-xs font-medium text-stone-500">
 								Total: {formatMinutes(totalMinutes)}
 							</div>
 						{/if}

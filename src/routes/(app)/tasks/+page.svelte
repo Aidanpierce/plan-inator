@@ -88,7 +88,7 @@
 	<!-- Header -->
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h2 class="text-2xl font-semibold text-stone-800 dark:text-stone-100">Tasks</h2>
+			<h2 class="text-2xl font-semibold text-stone-800">Tasks</h2>
 			<p class="mt-0.5 text-sm text-stone-400">
 				{$activeTasks.length} active · {$backlogTasks.length} in backlog
 			</p>
@@ -105,13 +105,13 @@
 	<!-- New task form -->
 	{#if showForm}
 		<div
-			class="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-900 dark:bg-amber-950/30"
+			class="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-5"
 		>
 			<div class="mb-4 flex items-center justify-between">
-				<h3 class="font-medium text-stone-800 dark:text-stone-100">New task</h3>
+				<h3 class="font-medium text-stone-800">New task</h3>
 				<button
 					onclick={closeForm}
-					class="text-stone-400 hover:text-stone-600 dark:hover:text-stone-300"
+					class="text-stone-400 hover:text-stone-600"
 				>
 					<X size={16} />
 				</button>
@@ -124,7 +124,7 @@
 						type="text"
 						placeholder="Task title"
 						bind:value={formTitle}
-						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 					/>
 				</div>
 
@@ -134,17 +134,17 @@
 						placeholder="Description (optional)"
 						bind:value={formDescription}
 						rows={2}
-						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 					></textarea>
 				</div>
 
 				<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 					<!-- Category -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="category-select">Category</label>
+						<label class="mb-1 block text-xs text-stone-500" for="category-select">Category</label>
 						<select
 							bind:value={formCategoryId}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="category-select"
 						>
 							<option value="">None</option>
@@ -156,10 +156,10 @@
 
 					<!-- Type -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="type-select">Type</label>
+						<label class="mb-1 block text-xs text-stone-500" for="type-select">Type</label>
 						<select
 							bind:value={formType}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="type-select"
 						>
 							<option value="general">General</option>
@@ -170,10 +170,10 @@
 
 					<!-- Status -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="status-select">Add to</label>
+						<label class="mb-1 block text-xs text-stone-500" for="status-select">Add to</label>
 						<select
 							bind:value={formStatus}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="status-select"
 						>
 							<option value="active">Active</option>
@@ -183,11 +183,11 @@
 
 					<!-- Deadline -->
 					<div>
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="deadline-input">Deadline</label>
+						<label class="mb-1 block text-xs text-stone-500" for="deadline-input">Deadline</label>
 						<input
 							type="date"
 							bind:value={formDeadline}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="deadline-input"
 							/>
 					</div>
@@ -195,7 +195,7 @@
 
 				<!-- Estimate -->
 				<div class="w-40">
-					<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="estimate-input">
+					<label class="mb-1 block text-xs text-stone-500" for="estimate-input">
 						Estimated minutes
 					</label>
 					<input
@@ -203,7 +203,7 @@
 						min="1"
 						placeholder="e.g. 60"
 						bind:value={formEstimatedMinutes}
-						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+						class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 						id="estimate-input"
 						/>
 				</div>
@@ -223,7 +223,7 @@
 					<button
 						type="button"
 						onclick={closeForm}
-						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800"
+						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100"
 					>
 						Cancel
 					</button>
@@ -233,22 +233,22 @@
 	{/if}
 
 	<!-- Tabs -->
-	<div class="mb-4 flex gap-1 border-b border-stone-200 dark:border-stone-700">
+	<div class="mb-4 flex gap-1 border-b border-stone-200">
 		{#each [['active', 'Active'], ['backlog', 'Backlog'], ['completed', 'Completed']] as [tab, label] (tab)}
 			<button
 				onclick={() => (activeTab = tab as Tab)}
 				class="px-4 py-2 text-sm font-medium transition-colors
 					{activeTab === tab
-					? 'border-b-2 border-amber-500 text-amber-700 dark:text-amber-400'
-					: 'text-stone-500 hover:text-stone-700 dark:hover:text-stone-300'}"
+					? 'border-b-2 border-amber-500 text-amber-700'
+					: 'text-stone-500 hover:text-stone-700'}"
 			>
 				{label}
 				{#if tab === 'active'}
-					<span class="ml-1 rounded-full bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+					<span class="ml-1 rounded-full bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700">
 						{$activeTasks.length}
 					</span>
 				{:else if tab === 'backlog'}
-					<span class="ml-1 rounded-full bg-stone-100 px-1.5 py-0.5 text-xs text-stone-500 dark:bg-stone-800 dark:text-stone-400">
+					<span class="ml-1 rounded-full bg-stone-100 px-1.5 py-0.5 text-xs text-stone-500">
 						{$backlogTasks.length}
 					</span>
 				{/if}
@@ -259,11 +259,11 @@
 	<!-- Task lists -->
 	{#if activeTab === 'active'}
 		{#if $activeTasks.length === 0}
-			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
+			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center">
 				<p class="text-stone-400">No active tasks.</p>
 				<button
 					onclick={openForm}
-					class="mt-2 text-sm text-amber-600 hover:underline dark:text-amber-400"
+					class="mt-2 text-sm text-amber-600 hover:underline"
 				>
 					Add one?
 				</button>
@@ -281,7 +281,7 @@
 		{/if}
 	{:else if activeTab === 'backlog'}
 		{#if $backlogTasks.length === 0}
-			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
+			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center">
 				<p class="text-stone-400">Backlog is empty.</p>
 			</div>
 		{:else}
@@ -297,7 +297,7 @@
 		{/if}
 	{:else}
 		{#if $completedTasks.length === 0}
-			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
+			<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center">
 				<p class="text-stone-400">No completed tasks yet.</p>
 			</div>
 		{:else}

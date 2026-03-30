@@ -33,8 +33,8 @@
 	onclick={toggle}
 	class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors
 		{isActive
-		? 'bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400'
-		: 'bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950 dark:text-amber-400'}"
+		? 'bg-red-50 text-red-600 hover:bg-red-100'
+		: 'bg-amber-50 text-amber-700 hover:bg-amber-100'}"
 >
 	{#if isActive}
 		<Square size={12} />

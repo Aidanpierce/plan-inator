@@ -162,7 +162,7 @@
 	<!-- Header -->
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h2 class="text-2xl font-semibold text-stone-800 dark:text-stone-100">Categories</h2>
+			<h2 class="text-2xl font-semibold text-stone-800">Categories</h2>
 			<p class="mt-0.5 text-sm text-stone-400">{$categoryStore.length} categories</p>
 		</div>
 		<button
@@ -176,36 +176,36 @@
 
 	<!-- Auto-detection suggestions -->
 	{#if visibleSuggestions.length > 0}
-		<div class="mb-6 rounded-xl border border-violet-200 bg-violet-50 p-4 dark:border-violet-900 dark:bg-violet-950/30">
+		<div class="mb-6 rounded-xl border border-violet-200 bg-violet-50 p-4">
 			<div class="mb-3 flex items-center gap-2">
 				<Sparkles size={15} class="text-violet-500" />
-				<h3 class="text-sm font-medium text-violet-800 dark:text-violet-300">
+				<h3 class="text-sm font-medium text-violet-800">
 					Suggested categories
 				</h3>
-				<span class="text-xs text-violet-500 dark:text-violet-400">
+				<span class="text-xs text-violet-500">
 					— based on your task titles
 				</span>
 			</div>
 			<div class="flex flex-wrap gap-2">
 				{#each visibleSuggestions as suggestion (suggestion.matchedToken)}
 					<div
-						class="flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1.5 text-sm dark:border-violet-800 dark:bg-stone-900"
+						class="flex items-center gap-2 rounded-full border border-violet-200 bg-white px-3 py-1.5 text-sm"
 					>
-						<span class="text-stone-700 dark:text-stone-200">{suggestion.name}</span>
-						<span class="text-xs text-stone-400 dark:text-stone-500">
+						<span class="text-stone-700">{suggestion.name}</span>
+						<span class="text-xs text-stone-400">
 							{suggestion.taskIds.length} task{suggestion.taskIds.length !== 1 ? 's' : ''}
 						</span>
 						<button
 							onclick={() => acceptSuggestion(suggestion.name, suggestion.taskIds)}
 							title="Create this category"
-							class="rounded-full p-0.5 text-violet-600 transition-colors hover:bg-violet-100 dark:text-violet-400 dark:hover:bg-violet-900"
+							class="rounded-full p-0.5 text-violet-600 transition-colors hover:bg-violet-100"
 						>
 							<Check size={13} />
 						</button>
 						<button
 							onclick={() => dismissSuggestion(suggestion.matchedToken)}
 							title="Dismiss"
-							class="rounded-full p-0.5 text-stone-400 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800"
+							class="rounded-full p-0.5 text-stone-400 transition-colors hover:bg-stone-100"
 						>
 							<X size={13} />
 						</button>
@@ -217,12 +217,12 @@
 
 	<!-- New category form -->
 	{#if showForm}
-		<div class="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-900 dark:bg-amber-950/30">
+		<div class="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-5">
 			<div class="mb-4 flex items-center justify-between">
-				<h3 class="font-medium text-stone-800 dark:text-stone-100">New category</h3>
+				<h3 class="font-medium text-stone-800">New category</h3>
 				<button
 					onclick={() => (showForm = false)}
-					class="text-stone-400 hover:text-stone-600 dark:hover:text-stone-300"
+					class="text-stone-400 hover:text-stone-600"
 				>
 					<X size={16} />
 				</button>
@@ -230,17 +230,17 @@
 			<form onsubmit={submitForm} class="space-y-3">
 				<div class="flex gap-3">
 					<div class="flex-1">
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="name-input">Name</label>
+						<label class="mb-1 block text-xs text-stone-500" for="name-input">Name</label>
 						<input
 							type="text"
 							placeholder="e.g. CS101"
 							bind:value={formName}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="name-input"
 							/>
 					</div>
 					<div class="w-24">
-						<label class="mb-1 block text-xs text-stone-500 dark:text-stone-400" for="priority-input">
+						<label class="mb-1 block text-xs text-stone-500" for="priority-input">
 							Priority (1–10)
 						</label>
 						<input
@@ -248,21 +248,21 @@
 							min="1"
 							max="10"
 							bind:value={formPriority}
-							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+							class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 							id="priority-input"
 							/>
 					</div>
 				</div>
 
 				<div>
-					<label class="mb-2 block text-xs text-stone-500 dark:text-stone-400" for="color-select">Colour</label>
+					<label class="mb-2 block text-xs text-stone-500" for="color-select">Colour</label>
 					<div class="flex flex-wrap gap-2" id="color-select">
 						{#each PALETTE as color (color)}
 							<button
 								type="button"
 								onclick={() => (formColor = color)}
 								class="h-7 w-7 rounded-full border-2 transition-transform hover:scale-110
-									{formColor === color ? 'border-stone-700 dark:border-white scale-110' : 'border-transparent'}"
+									{formColor === color ? 'border-stone-700 scale-110' : 'border-transparent'}"
 								style="background-color: {color};"
 								title={color}
 							></button>
@@ -285,7 +285,7 @@
 					<button
 						type="button"
 						onclick={() => (showForm = false)}
-						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800"
+						class="rounded-lg px-4 py-2 text-sm text-stone-500 transition-colors hover:bg-stone-100"
 					>
 						Cancel
 					</button>
@@ -296,11 +296,11 @@
 
 	<!-- Category list -->
 	{#if $categoryStore.length === 0}
-		<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center dark:border-stone-700">
+		<div class="rounded-xl border border-dashed border-stone-200 p-10 text-center">
 			<p class="text-stone-400">No categories yet.</p>
 			<button
 				onclick={openForm}
-				class="mt-2 text-sm text-amber-600 hover:underline dark:text-amber-400"
+				class="mt-2 text-sm text-amber-600 hover:underline"
 			>
 				Create one?
 			</button>
@@ -310,14 +310,14 @@
 			{#each $categoryStore as cat (cat.id)}
 				{#if editingId === cat.id}
 					<!-- Inline edit row -->
-					<div class="rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/20">
+					<div class="rounded-xl border border-amber-200 bg-amber-50 p-4">
 						<form onsubmit={(e) => saveEdit(cat.id, e)} class="space-y-3">
 							<div class="flex gap-3">
 								<div class="flex-1">
 									<input
 										type="text"
 										bind:value={editName}
-										class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+										class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 									/>
 								</div>
 								<div class="w-24">
@@ -326,7 +326,7 @@
 										min="1"
 										max="10"
 										bind:value={editPriority}
-										class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100"
+										class="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-100"
 									/>
 								</div>
 							</div>
@@ -337,7 +337,7 @@
 										aria-label={"Select color: " + color}
 										onclick={() => (editColor = color)}
 										class="h-6 w-6 rounded-full border-2 transition-transform hover:scale-110
-											{editColor === color ? 'border-stone-700 dark:border-white scale-110' : 'border-transparent'}"
+											{editColor === color ? 'border-stone-700 scale-110' : 'border-transparent'}"
 										style="background-color: {color};"
 									></button>
 								{/each}
@@ -356,7 +356,7 @@
 								<button
 									type="button"
 									onclick={cancelEdit}
-									class="rounded-lg px-3 py-1.5 text-xs text-stone-500 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800"
+									class="rounded-lg px-3 py-1.5 text-xs text-stone-500 transition-colors hover:bg-stone-100"
 								>
 									Cancel
 								</button>
@@ -365,7 +365,7 @@
 					</div>
 				{:else}
 					<!-- Display row -->
-					<div class="flex items-center gap-3 rounded-xl border border-stone-200 bg-white p-4 dark:border-stone-700 dark:bg-stone-900">
+					<div class="flex items-center gap-3 rounded-xl border border-stone-200 bg-white p-4">
 						<!-- Color swatch -->
 						<div
 							class="h-9 w-9 shrink-0 rounded-lg"
@@ -379,8 +379,8 @@
 
 						<!-- Name + meta -->
 						<div class="min-w-0 flex-1">
-							<p class="font-medium text-stone-800 dark:text-stone-100">{cat.name}</p>
-							<p class="text-xs text-stone-400 dark:text-stone-500">
+							<p class="font-medium text-stone-800">{cat.name}</p>
+							<p class="text-xs text-stone-400">
 								Priority {cat.priority} · {taskCount(cat.id)} active task{taskCount(cat.id) !== 1
 									? 's'
 									: ''}
@@ -401,14 +401,14 @@
 							<button
 								onclick={() => startEdit(cat)}
 								title="Edit"
-								class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600 dark:hover:bg-stone-800"
+								class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
 							>
 								<Pencil size={14} />
 							</button>
 							<button
 								onclick={() => deleteCategory(cat.id, cat.name)}
 								title="Delete"
-								class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950"
+								class="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500"
 							>
 								<Trash2 size={14} />
 							</button>
