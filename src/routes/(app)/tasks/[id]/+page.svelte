@@ -23,7 +23,7 @@
 	// @ts-expect-error lucide path mismatch
 	import X from '@lucide/svelte/icons/x';
 
-	let taskId = $derived($page.params.id);
+	let taskId = $derived(page.params.id);
 	let task = $derived($taskStore.find((t) => t.id === taskId) ?? null);
 	let category = $derived(
 		task ? ($categoryStore.find((c) => c.id === task!.categoryId) ?? null) : null
@@ -34,26 +34,27 @@
 	let totalMinutes = $state(0);
 
 	$effect(() => {
-		if (taskId) {
-			TimeEntryRepository.getForTask(taskId).then((entries) => {
-				timeEntries = entries;
-			});
-			TimeEntryRepository.getTotalMinutes(taskId).then((m) => {
-				totalMinutes = m;
-			});
-		}
+		const id = taskId;
+		if (!id) return;
+		TimeEntryRepository.getForTask(id).then((entries) => {
+			timeEntries = entries;
+		});
+		TimeEntryRepository.getTotalMinutes(id).then((m) => {
+			totalMinutes = m;
+		});
 	});
 
 	// Reload time entries after timer stops
 	let prevActiveTaskId = $state<string | null>(null);
 	$effect(() => {
+		const id = taskId;
 		const activeId = $timerStore.activeTaskId;
-		if (prevActiveTaskId === taskId && activeId !== taskId) {
+		if (prevActiveTaskId === id && activeId !== id && id) {
 			// Timer just stopped for this task — reload entries
-			TimeEntryRepository.getForTask(taskId).then((entries) => {
+			TimeEntryRepository.getForTask(id).then((entries) => {
 				timeEntries = entries;
 			});
-			TimeEntryRepository.getTotalMinutes(taskId).then((m) => {
+			TimeEntryRepository.getTotalMinutes(id).then((m) => {
 				totalMinutes = m;
 			});
 		}
@@ -103,6 +104,7 @@
 
 	async function saveEdit(e: SubmitEvent) {
 		e.preventDefault();
+		if (!task) return;
 		if (!editTitle.trim()) {
 			editError = 'Title is required.';
 			return;
@@ -110,7 +112,7 @@
 		saving = true;
 		editError = '';
 		try {
-			await taskStore.updateTask(taskId, {
+			await taskStore.updateTask(task.id, {
 				title: editTitle.trim(),
 				description: editDescription.trim() || undefined,
 				categoryId: editCategoryId,
@@ -120,7 +122,8 @@
 				estimatedMinutes: editEstimatedMinutes ? parseInt(editEstimatedMinutes) : undefined
 			});
 			editing = false;
-		} catch {
+		} catch (err){
+			console.log(err)
 			editError = 'Something went wrong. Please try again.';
 		} finally {
 			saving = false;
@@ -129,17 +132,17 @@
 
 	async function complete() {
 		if (!task) return;
-		await taskStore.completeTask(taskId);
+		await taskStore.completeTask(task.id);
 	}
 
 	async function abandon() {
 		if (!task || !confirm('Mark this task as abandoned?')) return;
-		await taskStore.abandonTask(taskId);
+		await taskStore.abandonTask(task.id);
 	}
 
 	async function deleteTask() {
 		if (!task || !confirm('Delete this task? This cannot be undone.')) return;
-		await taskStore.deleteTask(taskId);
+		await taskStore.deleteTask(task.id);
 		goto(resolve('/tasks'));
 	}
 
