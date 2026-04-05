@@ -44,5 +44,17 @@ export const TaskRepository = {
 	async abandon(id: string): Promise<void> {
 		const now = new Date().toISOString();
 		await db.tasks.update(id, { status: 'abandoned', abandonedAt: now, updatedAt: now });
+	},
+
+	/**
+	 * Write system-generated estimate fields directly without touching updatedAt,
+	 * so user-visible "last modified" timestamps are not affected.
+	 */
+	async updateSystemEstimate(
+		id: string,
+		systemEstimateMinutes: number,
+		estimateConfidence: number
+	): Promise<void> {
+		await db.tasks.update(id, { systemEstimateMinutes, estimateConfidence });
 	}
 };

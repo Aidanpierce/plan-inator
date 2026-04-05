@@ -9,6 +9,8 @@
 	import Clock from '@lucide/svelte/icons/clock';
 	// @ts-expect-error lucide path mismatch
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	// @ts-expect-error lucide path mismatch
+	import Sparkles from '@lucide/svelte/icons/sparkles';
 
 	let {
 		task,
@@ -38,6 +40,36 @@
 		if (diffDays === 1) return 'Due tomorrow';
 		return `Due ${d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
 	});
+
+	/** The estimate to show: system estimate takes priority over user estimate. */
+	let displayEstimate = $derived(() => {
+		if (task.systemEstimateMinutes) {
+			return {
+				minutes: task.systemEstimateMinutes,
+				isSystem: true,
+				confidence: task.estimateConfidence ?? 0
+			};
+		}
+		if (task.estimatedMinutes) {
+			return { minutes: task.estimatedMinutes, isSystem: false, confidence: null };
+		}
+		return null;
+	});
+
+	function formatEstimate(minutes: number): string {
+		const h = Math.floor(minutes / 60);
+		const m = minutes % 60;
+		if (h === 0) return `~${m}m`;
+		if (m === 0) return `~${h}h`;
+		return `~${h}h ${m}m`;
+	}
+
+	/** Confidence pill color: high ≥ 0.6, medium ≥ 0.3, low < 0.3 */
+	function confidencePillClass(confidence: number): string {
+		if (confidence >= 0.6) return 'text-green-600';
+		if (confidence >= 0.3) return 'text-amber-500';
+		return 'text-stone-400';
+	}
 
 	async function complete(e: MouseEvent) {
 		e.preventDefault();
@@ -99,10 +131,22 @@
 					</span>
 				{/if}
 
-				{#if task.estimatedMinutes}
-					<span class="text-xs text-stone-400">
-						~{task.estimatedMinutes}min
-					</span>
+				{#if displayEstimate()}
+					{@const est = displayEstimate()}
+					{#if est}
+						<span
+							class="flex items-center gap-1 text-xs
+								{est.isSystem ? confidencePillClass(est.confidence ?? 0) : 'text-stone-400'}"
+							title={est.isSystem
+								? `System estimate (${Math.round((est.confidence ?? 0) * 100)}% confidence, ${task.estimateConfidence !== undefined ? 'log-normal model' : ''})`
+								: 'Your estimate'}
+						>
+							{#if est.isSystem}
+								<Sparkles size={10} />
+							{/if}
+							{formatEstimate(est.minutes)}
+						</span>
+					{/if}
 				{/if}
 			</div>
 		</div>

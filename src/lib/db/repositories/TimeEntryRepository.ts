@@ -33,6 +33,10 @@ export const TimeEntryRepository = {
 		return entries.reduce((sum, e) => sum + (e.durationMinutes ?? 0), 0);
 	},
 
+	async getAll(): Promise<TimeEntry[]> {
+		return db.timeEntries.toArray();
+	},
+
 	async delete(id: string): Promise<void> {
 		await db.timeEntries.delete(id);
 	}

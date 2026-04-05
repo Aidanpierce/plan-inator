@@ -100,7 +100,7 @@ All messages use gentle tone: "Hey, [task] is due in 2 days. No rush, just wante
 - App shell layout, dashboard page, settings page (day template config)
 - **Deliverable:** User configures day templates, sees available hours per day/week
 
-### Phase 2: Tasks & Categories ← current
+### Phase 2: Tasks & Categories
 - Task CRUD, time entry tracking with start/stop timer
 - Category management with priority ordering
 - Category auto-detection service
@@ -108,7 +108,7 @@ All messages use gentle tone: "Hey, [task] is due in 2 days. No rush, just wante
 - TaskCard, CategoryBadge, Timer components
 - **Deliverable:** Full task lifecycle — create, categorize, track time, complete
 
-### Phase 3: Productivity & Estimation
+### Phase 3: Productivity & Estimation  ← current
 - Productivity factor calculation (rolling window)
 - Time estimation service (log-normal model)
 - Daily productivity snapshot background computation

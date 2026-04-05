@@ -7,7 +7,12 @@
 	import { categoryStore } from '$lib/stores/categoryStore.js';
 	import { taskStore } from '$lib/stores/taskStore.js';
 	import { timerStore } from '$lib/stores/timerStore.js';
+	import { productivityStore } from '$lib/stores/productivityStore.js';
 	import { SettingsRepository } from '$lib/db/repositories/SettingsRepository.js';
+	import { TaskRepository } from '$lib/db/repositories/TaskRepository.js';
+	import { TimeEntryRepository } from '$lib/db/repositories/TimeEntryRepository.js';
+	import { estimateTaskDuration } from '$lib/services/timeEstimation.js';
+	import { get } from 'svelte/store';
 	import { resolve } from '$app/paths';
 	// Import svelte icons this way so they get tree-shaken away
 	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
@@ -24,6 +29,7 @@
 	import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
 	// @ts-expect-error linter expects icons to be in @lucide/svelte/dist/icons/<icon> but they're really in @lucide/svelte/icons/<icon>
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
+	import type { Task } from '$lib/db/types';
 
 	let { children } = $props();
 
@@ -81,8 +87,40 @@
 			dayTemplateStore.load(),
 			categoryStore.load(),
 			taskStore.load(),
-			timerStore.load()
+			timerStore.load(),
+			productivityStore.load()
 		]);
+
+		// Compute today's productivity snapshot from live data
+		const templates = get(dayTemplateStore);
+		await productivityStore.computeToday(templates);
+
+		// Compute and persist system time estimates for all non-completed tasks
+		const [allTasks, allEntries] = await Promise.all([
+			TaskRepository.getAll(),
+			TimeEntryRepository.getAll()
+		]);
+		const completedTasks = allTasks.filter((t: Task) => t.status === 'completed');
+		const estimateUpdates: Promise<void>[] = [];
+		for (const task of allTasks) {
+			if (task.status === 'completed' || task.status === 'abandoned') continue;
+			const result = estimateTaskDuration(task, completedTasks, allEntries);
+			if (!result) continue;
+			const changed =
+				task.systemEstimateMinutes !== result.estimateMinutes ||
+				Math.abs((task.estimateConfidence ?? 0) - result.confidence) > 0.01;
+			if (changed) {
+				estimateUpdates.push(
+					TaskRepository.updateSystemEstimate(task.id, result.estimateMinutes, result.confidence)
+				);
+			}
+		}
+		if (estimateUpdates.length > 0) {
+			await Promise.all(estimateUpdates);
+			// Refresh taskStore so UI sees the updated system estimates
+			await taskStore.load();
+		}
+
 		await SettingsRepository.touchLastActive();
 		ready = true;
 	});
